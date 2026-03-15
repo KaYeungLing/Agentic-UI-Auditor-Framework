@@ -1,0 +1,34 @@
+name: Autonomous UX Audit
+
+on:
+  pull_request:
+    branches: [ main ]
+    paths:
+      - 'components/**'
+      - 'app/**'
+      - 'styles/**'
+
+jobs:
+  run-ai-auditor:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - name: Set up Python
+      uses: actions/setup-python@v3
+      with:
+        python-version: '3.11'
+    - name: Install dependencies
+      run: |
+        pip install -r requirements.txt
+        playwright install chromium
+    - name: Run Agentic Auditor
+      env:
+        OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+      run: |
+        # Simulating running the auditor against a preview deployment
+        python main.py --url "https://your-preview-deployment.com" --goal "Find critical UX regressions"
+    - name: Upload Audit Artifacts
+      uses: actions/upload-artifact@v3
+      with:
+        name: UX-Audit-Report
+        path: data/reports/
