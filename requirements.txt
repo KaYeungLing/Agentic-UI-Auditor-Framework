@@ -1,0 +1,7 @@
+langgraph>=0.0.10
+langchain-openai>=0.1.0
+playwright>=1.42.0
+pydantic>=2.6.0
+python-dotenv>=1.0.0
+pytest>=8.0.0
+Pillow>=10.2.0
